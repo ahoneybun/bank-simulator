@@ -1,43 +1,36 @@
-use std::io;
+// use std::io;
 
 fn welcome_message() {
     println!("Welcome to Thelio Bank Inc!")
 }
 
-fn create_account() {
-    println!();
-    println!("Please provide your complete name:");
-
-    let mut account_name = String::new();
-
-    io::stdin()
-        .read_line(&mut account_name)
-        .expect("Failed to read line");
-
-    println!();
-    println!("Welcome {}", account_name);
-}
-
 fn main() {
     println!();
     welcome_message();
-    create_account();
 
-    println!("How much are you depositing?");
-
-    let mut balance_input = String::new();
-
-    io::stdin()
-        .read_line(&mut balance_input)
-        .expect("Failed to read line");
-
-    let x: i128 = balance_input.trim().parse().expect("Input is not an interger");}
+    let mut account = BankAccount {
+        owner: "Aaron Honeycutt".to_string(),
+        balance: 145.50,
+        account_number: 1234
+    };
+   
+    println!("Welcome {}", account.owner);
+    account.check_balance();
+}
 
 struct BankAccount {
     owner: String,
+    account_number: i128,
     balance: f64,
 }
 
 impl BankAccount {
+    fn desposit(&mut self, amount: f64) {
+        println!("Depositing {} to account ending in {}", amount, self.account_number);
+        self.balance += amount;
+    }
 
+    fn check_balance(&self) {
+        println!("your current balance is {} in account ending in {}", self.balance, self.account_number);
+    }
 }

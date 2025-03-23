@@ -10,19 +10,17 @@ fn main() {
     welcome_message();
 
     let account = BankAccount {
-        owner: "Aaron Honeycutt".to_string(),
-        account_number: 123456789,
-        balance: 145.50,
+        owner: "Placeholder".to_string(),
+        account_number: 6789,
+        balance: 0.50,
         pin: 1234,
 
     };
    
-    println!("Welcome {}", account.owner);
-    println!();
+    println!("What is your name?");
+    account.create_account();
 
-    println!("What would you like to set your PIN to?");
-    account.set_pin();
-    println!();
+    account.check_balance();
 }
 
 struct BankAccount {
@@ -33,13 +31,16 @@ struct BankAccount {
 }
 
 impl BankAccount {
-    // fn desposit(&mut self, amount: f64) {
-    //     println!("Depositing {} to account ending in {}", amount, self.account_number);
-    //     self.balance += amount;
-    // }
 
-    fn check_balance(&self) {
-        println!("your current balance is {} in account ending in {}", self.balance, self.account_number);
+    fn create_account(&self) {
+        let mut owner = String::new();
+
+        io::stdin()
+            .read_line(&mut owner)
+            .expect("Not a name");
+
+        println!("");
+        println!("Welcome {}", owner);
     }
 
     fn set_pin(&self) {
@@ -47,8 +48,17 @@ impl BankAccount {
 
         io::stdin()
             .read_line(&mut pin)
-            .expect("Failed to read line");
+            .expect("Not a number");
     
         println!("You have set your pin successfully.");
     }
+
+    fn check_balance(&self) {
+        println!("your current balance is {}", self.balance);
+    }
+
+    // fn desposit(&mut self, amount: f64) {
+    //     println!("Depositing {} to account ending in {}", amount, self.account_number);
+    //     self.balance += amount;
+    // }
 }
